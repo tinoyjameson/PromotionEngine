@@ -4,14 +4,13 @@ using System.Text;
 using System.Linq;
 namespace PromotionEngine
 {
-    public class BulkPromotion : IPromotion
+    public class ComboPromotion : IPromotion
     {
         private Dictionary<Product, int> requiredItems;
         private double OfferPrice;
-        public BulkPromotion(KeyValuePair<Product,int> items, double price)
+        public ComboPromotion(Dictionary<Product, int> items, double price)
         {
-            this.requiredItems = new Dictionary<Product, int>();
-            requiredItems.Add(items.Key, items.Value);
+            this.requiredItems = items;
             this.OfferPrice = price;
         }
         
