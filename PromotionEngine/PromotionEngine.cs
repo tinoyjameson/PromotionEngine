@@ -5,6 +5,12 @@ namespace PromotionEngine
 {
     public class PromotionEngine: IPromotionEngine
     {
+        /// <summary>
+        /// Get discount price.
+        /// </summary>
+        /// <param name="order">Order object</param>
+        /// <param name="promotions">promotion list</param>
+        /// <returns>discount</returns>
         public double GetDiscount(IOrder order, List<IPromotion> promotions)
         {
             double discount = 0;

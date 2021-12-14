@@ -42,9 +42,9 @@ namespace PromotionEngine
         public Tuple<IOrder, double> CalculateDiscount(IOrder order)
         {
             double discount = 0;
-            if (order.OrderedItems.ContainsKey(this.requiredProduct))
+            if (order.HasProduct(requiredProduct))
             {
-                var quantity = order.OrderedItems[this.requiredProduct];
+                var quantity = order.GetProductQuantity(requiredProduct);
                 if(quantity >= this.requiredQuantity)
                 {                   
                     var amountOfDiscountBundles = (int)Math.Floor((double)quantity / (double)this.requiredQuantity);

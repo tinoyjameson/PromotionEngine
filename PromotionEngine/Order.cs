@@ -44,6 +44,11 @@ namespace PromotionEngine
             
         }
 
+        /// <summary>
+        /// Remove quantity of product.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="quantity"></param>
         public void Remove(Product product, int quantity)
         {
             if (this.orderedItems.ContainsKey(product))
@@ -71,6 +76,11 @@ namespace PromotionEngine
             }
         }
 
+        /// <summary>
+        /// Get Product Quantity.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public int GetProductQuantity(Product product)
         {
             if (this.orderedItems.ContainsKey(product))
@@ -85,6 +95,10 @@ namespace PromotionEngine
             return this.orderedItems.ContainsKey(product);
         }
 
+        /// <summary>
+        /// Create a clone of the order.
+        /// </summary>
+        /// <returns></returns>
         public IOrder Clone()
         {
             var order = new Order();
@@ -95,6 +109,10 @@ namespace PromotionEngine
             return order;
         }
 
+        /// <summary>
+        /// Get total number of units.
+        /// </summary>
+        /// <returns></returns>
         public int GetTotalCount()
         {
             var totalCount = 0;
@@ -105,6 +123,10 @@ namespace PromotionEngine
             return totalCount;
         }
 
+        /// <summary>
+        /// Get total number of items.
+        /// </summary>
+        /// <returns></returns>
         public int GetTotalItems()
         {
             return orderedItems.Count;

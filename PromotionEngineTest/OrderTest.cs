@@ -13,7 +13,7 @@ namespace PromotionEngineTest
         /// When Adding new items.
         /// </summary>
         [TestMethod]
-        public void AddOrUpdateTest1()
+        public void AddTest1()
         {
             IOrder order = new Order();
             Product product1 = new Product() { Sku = "A", Price = 10.50 };
@@ -27,7 +27,7 @@ namespace PromotionEngineTest
         /// When Add or update new items.
         /// </summary>
         [TestMethod]
-        public void AddOrUpdateTest2()
+        public void AddTest2()
         {
             IOrder order = new Order();
             Product product1 = new Product() { Sku = "A", Price = 10.50 };
