@@ -26,7 +26,7 @@ namespace PromotionEngineTest
             order.Add(product1, 3);
             order.Add(product2, 3);
             var output = promotion.CalculateDiscount(order);
-            Assert.AreEqual(output.Item2, 30);
+            Assert.AreEqual(30, output.Item2);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace PromotionEngineTest
             order.Add(product1, 1);
             order.Add(product2, 1);
             var output = promotion.CalculateDiscount(order);
-            Assert.AreEqual(output.Item2, 0);
+            Assert.AreEqual(0, output.Item2);
         }
     }
 }

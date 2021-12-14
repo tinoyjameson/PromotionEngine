@@ -1,0 +1,1 @@
+﻿Test Scenarios are available in PromotionEngineTest.cs

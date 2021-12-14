@@ -115,7 +115,7 @@ namespace PromotionEngineTest
 
             IPromotionEngine promotionEngine = new PromotionEngine.PromotionEngine();
             var discount = promotionEngine.GetDiscount(order, promotions);
-            Assert.AreEqual(discount, 40);
+            Assert.AreEqual(40, discount);
         }
 
         [TestMethod]
@@ -164,7 +164,7 @@ namespace PromotionEngineTest
             IPriceCalculator priceCalculator = new PriceCalculator();
             var totalPrice = priceCalculator.GetTotalPrice(order);
             var priceAfterDiscount = totalPrice - discount;
-            Assert.AreEqual(priceAfterDiscount, 330);
+            Assert.AreEqual(330, priceAfterDiscount);
         }
 
         #endregion 
