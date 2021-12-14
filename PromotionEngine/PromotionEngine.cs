@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PromotionEngine
 {
     public class PromotionEngine: IPromotionEngine
     {
-        public double GetOfferPrice(IOrder order, IPromotion[] promotions)
+        public double GetDiscount(IOrder order, List<IPromotion> promotions)
         {
             double discount = 0;
             var discountedCart = order.Clone();

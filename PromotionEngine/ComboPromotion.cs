@@ -4,6 +4,9 @@ using System.Text;
 using System.Linq;
 namespace PromotionEngine
 {
+    /// <summary>
+    /// Promotion if order has multiple product with required quantity.
+    /// </summary>
     public class ComboPromotion : IPromotion
     {
         private Dictionary<Product, int> requiredItems;
@@ -14,16 +17,29 @@ namespace PromotionEngine
             this.OfferPrice = price;
         }
         
+        /// <summary>
+        /// To add product and requirmed items.
+        /// </summary>
+        /// <param name="product">Product object</param>
+        /// <param name="quantity">quantity in numbers</param>
         public void AddRequiredItem(Product product, int quantity)
         {
             this.requiredItems.Add(product, quantity);
         }
-
+        /// <summary>
+        /// To find the required quantity for promotion
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>Quantity {int}</returns>
         private int GetRequiredQuantity(Product product)
         {
             return this.requiredItems[product];
         }
-
+        /// <summary>
+        /// To check this promotion is applicable to the given order.
+        /// </summary>
+        /// <param name="order">Order object</param>
+        /// <returns></returns>
         public bool IsApplicable(IOrder order)
         {
             foreach(KeyValuePair<Product, int> item in requiredItems)
@@ -37,6 +53,11 @@ namespace PromotionEngine
             return true;
         }
 
+        /// <summary>
+        /// Calculate discount with combo promotion.
+        /// </summary>
+        /// <param name="order">Order object</param>
+        /// <returns></returns>
         public Tuple<IOrder, double> CalculateDiscount(IOrder order)
         {
             if (!this.IsApplicable(order))
@@ -44,24 +65,21 @@ namespace PromotionEngine
                 return Tuple.Create(order, 0.0);
             }
             double oldPrice = 0;
-            int counter = 0;
-            foreach (var requiredItem in this.requiredItems)
+            int noOfBundles = 0;
+            while (this.IsApplicable(order))
             {
-                counter++;
-                var requiredQuantity = requiredItem.Value;
-                var totalPrice = requiredItem.Key.Price * requiredQuantity;
-                oldPrice = oldPrice + totalPrice;
-                order.UpdateProductQuantity(requiredItem.Key, requiredQuantity);
-                if (counter < this.requiredItems.Count)
+                noOfBundles++;
+                foreach (var requiredItem in this.requiredItems)
                 {
-                    order.UpdateProductPrice(requiredItem.Key, 0);
+                    var requiredQuantity = requiredItem.Value;
+                    var totalPrice = requiredItem.Key.Price * requiredQuantity;
+                    oldPrice = oldPrice + totalPrice;
+                    var totalQuantity = order.OrderedItems[requiredItem.Key];
+                    order.UpdateProductQuantity(requiredItem.Key, totalQuantity - 1);
                 }
-                else
-                {
-                    order.UpdateProductPrice(requiredItem.Key, this.OfferPrice);
-                }
+                
             }
-            double discount = oldPrice - this.OfferPrice;
+            double discount = oldPrice - noOfBundles * this.OfferPrice;
             return Tuple.Create(order, discount);
         }
     }

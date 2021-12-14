@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PromotionEngine
 {
+    /// <summary>
+    /// Promotion if one order has a certain required quantity.
+    /// </summary>
     public class QuantityPromotion : IPromotion
     {
         private Product requiredProduct;
@@ -16,7 +17,11 @@ namespace PromotionEngine
             this.offerPrice = price;
         }
 
-
+        /// <summary>
+        /// Check to find the quantity promotion is applicable.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public bool IsApplicable(IOrder order)
         {
             foreach (var item in order.OrderedItems)
@@ -29,6 +34,11 @@ namespace PromotionEngine
             return false;
         }
 
+        /// <summary>
+        /// Calculate discount with quantity promotion.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public Tuple<IOrder, double> CalculateDiscount(IOrder order)
         {
             double discount = 0;

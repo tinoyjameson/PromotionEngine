@@ -4,6 +4,9 @@ using System.Text;
 
 namespace PromotionEngine
 {
+    /// <summary>
+    /// Order class to store the order from customer.
+    /// </summary>
     public class Order: IOrder
     {
         private Dictionary<Product, int> orderedItems;
@@ -20,7 +23,13 @@ namespace PromotionEngine
                 return orderedItems;
             }
         }
-        public void AddOrUpdate(Product product, int quantity)
+
+        /// <summary>
+        /// Add product or update quantity to existing product.
+        /// </summary>
+        /// <param name="product">Product object</param>
+        /// <param name="quantity">quantity in numbers</param>
+        public void Add(Product product, int quantity)
         {
             int newQuantity = quantity;
             if(this.orderedItems.ContainsKey(product)){
@@ -44,6 +53,12 @@ namespace PromotionEngine
             }
         }
 
+        /// <summary>
+        /// Update product quantity.
+        /// purpose is to manage the cart while applying promotions.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="quantity"></param>
         public void UpdateProductQuantity(Product product, int quantity)
         {
             if(quantity > 0)
@@ -54,14 +69,6 @@ namespace PromotionEngine
             {
                 this.orderedItems.Remove(product);
             }
-        }
-
-        public void UpdateProductPrice(Product product, double price)
-        {
-            var quantity = this.orderedItems[product];
-            this.orderedItems.Remove(product);
-            product.Price = price;
-            this.orderedItems.Add(product, quantity);
         }
 
         public int GetProductQuantity(Product product)
@@ -83,9 +90,24 @@ namespace PromotionEngine
             var order = new Order();
             foreach(var orderedItem in this.orderedItems)
             {
-                order.AddOrUpdate(orderedItem.Key, orderedItem.Value);
+                order.Add(orderedItem.Key, orderedItem.Value);
             }
             return order;
+        }
+
+        public int GetTotalCount()
+        {
+            var totalCount = 0;
+            foreach(var orderedItem in this.orderedItems)
+            {
+                totalCount = totalCount + orderedItem.Value;
+            }
+            return totalCount;
+        }
+
+        public int GetTotalItems()
+        {
+            return orderedItems.Count;
         }
     }
 }

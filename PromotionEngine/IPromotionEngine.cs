@@ -6,6 +6,6 @@ namespace PromotionEngine
 {
     public interface IPromotionEngine 
     {
-        double GetOfferPrice(IOrder order, IPromotion[] promotions);
+        double GetDiscount(IOrder order, List<IPromotion> promotions);
     }
 }
